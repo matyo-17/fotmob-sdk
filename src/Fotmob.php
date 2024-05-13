@@ -14,7 +14,13 @@ Class Fotmob {
     }
 
     public function get_all_leagues() {
-        return $this->get(self::$api_url."allLeaguesz");
+        return $this->get(self::$api_url."allLeagues");
+    }
+
+    public function get_league_teams(int $id) {
+        $url = self::$api_url."tltable?".http_build_query(['leagueId' => $id]);
+        $response = $this->get($url);
+        return $response[0]['data']['table']['all'];
     }
 
     protected function get(string $url, $payload = null) {
@@ -47,7 +53,9 @@ Class Fotmob {
 
     private function map_response(Response $response) {
         $body = $response->body;
-        if (gettype($body) !== 'object') {
+
+        $resp_type = gettype($body);
+        if ($resp_type !== 'object' && $resp_type !== 'array') {
             throw new Exception("return body cannot be converted to array");
         }
 
