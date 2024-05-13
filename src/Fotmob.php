@@ -2,6 +2,7 @@
 
 namespace Matyo17\FotmobSdk;
 
+use Exception;
 use Httpful\Request;
 use Httpful\Response;
 
@@ -13,7 +14,7 @@ Class Fotmob {
     }
 
     public function get_all_leagues() {
-        return $this->get(self::$api_url."allLeagues");
+        return $this->get(self::$api_url."allLeaguesz");
     }
 
     protected function get(string $url, $payload = null) {
@@ -46,6 +47,10 @@ Class Fotmob {
 
     private function map_response(Response $response) {
         $body = $response->body;
+        if (gettype($body) !== 'object') {
+            throw new Exception("return body cannot be converted to array");
+        }
+
         return json_decode(json_encode($body), true);
     }
 }
