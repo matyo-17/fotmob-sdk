@@ -3,7 +3,8 @@
     "description": "Unofficial Fotmob SDK for PHP",
     "type": "library",
     "require": {
-        "php": "8.2.12"
+        "php": "8.2.12",
+        "nategood/httpful": "^1.0"
     },
     "license": "MIT",
     "autoload": {
@@ -13,7 +14,8 @@
     },
     "authors": [
         {
-            "name": "matyo-17"
+            "name": "matyo-17",
+            "homepage": "https://github.com/matyo-17"
         }
     ]
 }
