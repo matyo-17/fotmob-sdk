@@ -7,27 +7,17 @@ use Httpful\Request;
 use Httpful\Response;
 
 Class Fotmob {
-    private static string $api_url = "https://www.fotmob.com/api/";
+    protected static string $api_url = "https://www.fotmob.com/api/";
 
     public function __construct() {
         
     }
 
     public function get_all_leagues() {
-        return $this->get(self::$api_url."allLeagues");
+        return $this->call_api('get', self::$api_url."allLeagues");
     }
 
-    public function get_league_teams(int $league_id) {
-        $url = self::$api_url."tltable?".http_build_query(['leagueId' => $league_id]);
-        $response = $this->get($url);
-        return $response[0]['data']['table']['all'];
-    }
-
-    protected function get(string $url, $payload = null) {
-        return $this->call_api('get', $url, $payload);
-    }
-
-    private function call_api(string $method, string $url, $payload = null) {
+    protected function call_api(string $method, string $url, $payload = null) {
         $method = strtolower($method);
 
         switch ($method) {
