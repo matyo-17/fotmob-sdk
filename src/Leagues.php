@@ -1,5 +1,8 @@
 <?php
 
+namespace Matyo17\FotmobSdk;
+
+use Exception;
 use Matyo17\FotmobSdk\Fotmob;
 
 class Leagues extends Fotmob {
@@ -29,9 +32,28 @@ class Leagues extends Fotmob {
         $this->load_data();
     }
 
+    public function details() {
+        $details = $this->data['details'];
+        
+        unset(
+            $details["breadcrumbJSONLD"],
+            $details["faqJSONLD"],
+        ); 
+
+        return $details;
+    }
+
+    public function matches() {
+        $matches = $this->data['matches']['allMatches'];
+        foreach ($matches as $i => $v) {
+            unset($matches[$i]['pageUrl']);
+        }
+        return $matches;
+    }
+
     private function load_data() {
         $payload = [
-            'leagueId' => $this->id,
+            'id' => $this->id,
             'season' => $this->season,
         ];
         $url = Fotmob::$api_url."leagues?".http_build_query($payload);
