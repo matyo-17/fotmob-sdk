@@ -51,6 +51,29 @@ class Leagues extends Fotmob {
         return $matches;
     }
 
+    public function teams() {
+        $table = $this->data['table'][0]['data'];
+
+        $teams = [];
+        if ($table['composite']) {
+            $groups = $table['tables'];
+            foreach ($groups as $grp) {
+                $teams = array_merge($teams, $grp['table']['all']);
+            }
+        } else {
+            $teams = $table['table']['all'];
+        }
+
+        foreach ($teams as $i => $v) {
+            unset(
+                $teams[$i]['pageUrl'],
+                $teams[$i]['qualColor'],
+            );
+        }
+
+        return $teams;
+    }
+
     private function load_data() {
         $payload = [
             'id' => $this->id,

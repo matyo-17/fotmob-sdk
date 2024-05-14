@@ -9,10 +9,6 @@ use Httpful\Response;
 Class Fotmob {
     protected static string $api_url = "https://www.fotmob.com/api/";
 
-    public function __construct() {
-        
-    }
-
     public function get_all_leagues() {
         return $this->call_api('get', self::$api_url."allLeagues");
     }
